@@ -1,0 +1,32 @@
+﻿@model MiniERP.Models.Categoria
+
+@{
+    ViewData["Title"] = "Detalles Categoría";
+}
+
+<h2>Detalles</h2>
+
+<div>
+    <h4>Categoría</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Nombre</dt>
+        <dd class="col-sm-10">@Model.Nombre</dd>
+    </dl>
+</div>
+
+@if (Model.Productos != null && Model.Productos.Any())
+{
+    <h5>Productos en esta categoría:</h5>
+    <ul>
+        @foreach (var prod in Model.Productos)
+        {
+            <li>@prod.Nombre (Stock: @prod.Stock, Precio: @prod.Precio €)</li>
+        }
+    </ul>
+}
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Editar</a> |
+    <a asp-action="Index" class="btn btn-secondary">Volver</a>
+</div>

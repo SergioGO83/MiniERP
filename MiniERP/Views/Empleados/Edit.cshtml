@@ -1,0 +1,32 @@
+﻿@model MiniERP.Models.Empleado
+
+@{
+    ViewData["Title"] = "Editar Empleado";
+    var departamentos = ViewData["Departamentos"] as List<MiniERP.Models.Departamento>;
+}
+
+<h2>Editar Empleado</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label asp-for="Nombre" class="control-label"></label>
+        <input asp-for="Nombre" class="form-control" />
+        <span asp-validation-for="Nombre" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Edad" class="control-label"></label>
+        <input asp-for="Edad" class="form-control" />
+        <span asp-validation-for="Edad" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Departamento</label>
+        <select asp-for="DepartamentoId" class="form-control" asp-items="@(new SelectList(departamentos, "Id", "Nombre", Model.DepartamentoId))"></select>
+    </div>
+
+    <button type="submit" class="btn btn-success">Guardar Cambios</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

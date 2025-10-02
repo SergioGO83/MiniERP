@@ -1,0 +1,32 @@
+﻿@model MiniERP.Models.Departamento
+
+@{
+    ViewData["Title"] = "Detalles Departamento";
+}
+
+<h2>Detalles</h2>
+
+<div>
+    <h4>Departamento</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Nombre</dt>
+        <dd class="col-sm-10">@Model.Nombre</dd>
+    </dl>
+</div>
+
+@if (Model.Empleados != null && Model.Empleados.Any())
+{
+    <h5>Empleados en este departamento:</h5>
+    <ul>
+        @foreach (var emp in Model.Empleados)
+        {
+            <li>@emp.Nombre (@emp.Edad años)</li>
+        }
+    </ul>
+}
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Editar</a> |
+    <a asp-action="Index" class="btn btn-secondary">Volver</a>
+</div>
