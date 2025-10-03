@@ -1,0 +1,104 @@
+﻿@model IEnumerable<MiniERP.Models.Usuario>
+@{
+    ViewData["Title"] = "Gestión de Usuarios";
+}
+
+<h2 class="mb-4">Gestión de Usuarios</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">
+        <i class="bi bi-person-plus"></i> Nuevo Usuario
+    </a>
+</p>
+
+<table id="tablaUsuarios" class="table table-hover table-bordered align-middle shadow-sm">
+    <thead class="table-dark">
+        <tr>
+            <th>Email</th>
+            <th>Rol</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Email</td>
+                <td>
+                    @(ViewBag.UserRoles.ContainsKey(user.Id) ? ViewBag.UserRoles[user.Id] : "Sin rol")
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@user.Id" class="btn btn-sm btn-warning">
+                        <i class="bi bi-pencil"></i> Editar
+                    </a>
+                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-userid="@user.Id" data-useremail="@user.Email">
+                        <i class="bi bi-trash"></i> Eliminar
+                    </button>
+                    <a asp-action="ResetPassword" asp-route-id="@user.Id" class="btn btn-sm btn-danger">
+                        <i class="bi bi-key"></i> Resetear contraseña
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Modal de Confirmación -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="deleteModalLabel">Confirmar Eliminación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>¿Estás seguro de que deseas eliminar al usuario <strong id="userEmail"></strong>?</p>
+            </div>
+            <div class="modal-footer">
+                <form id="deleteForm" asp-action="DeleteConfirmed" method="post">
+                    <input type="hidden" name="id" id="deleteUserId" />
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var deleteModal = document.getElementById('deleteModal');
+        deleteModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+            var userId = button.getAttribute('data-userid');
+            var userEmail = button.getAttribute('data-useremail');
+
+            var modalUserEmail = deleteModal.querySelector('#userEmail');
+            var inputUserId = deleteModal.querySelector('#deleteUserId');
+
+            modalUserEmail.textContent = userEmail;
+            inputUserId.value = userId;
+        });
+
+        // Inicializamos DataTables
+        $(document).ready(function () {
+            $('#tablaUsuarios').DataTable({
+                responsive: true,
+                ordering: true,
+                paging: true,
+                searching: true,
+                dom: 'Bfrtip',
+                buttons: [
+                    { extend: 'copy', text: '<i class="bi bi-clipboard"></i> Copiar', className: 'btn btn-secondary' },
+                    { extend: 'excel', text: '<i class="bi bi-file-earmark-excel"></i> Excel', className: 'btn btn-success' },
+                    { extend: 'csv', text: '<i class="bi bi-filetype-csv"></i> CSV', className: 'btn btn-info' },
+                    { extend: 'pdf', text: '<i class="bi bi-file-earmark-pdf"></i> PDF', className: 'btn btn-danger' },
+                    { extend: 'print', text: '<i class="bi bi-printer"></i> Imprimir', className: 'btn btn-dark' }
+                ],
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
+                }
+            });
+        });
+    </script>
+}

@@ -209,7 +209,7 @@ namespace MiniERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("DepartamentoId")
+                    b.Property<int?>("DepartamentoId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Edad")
@@ -378,9 +378,7 @@ namespace MiniERP.Migrations
                 {
                     b.HasOne("MiniERP.Models.Departamento", "Departamento")
                         .WithMany("Empleados")
-                        .HasForeignKey("DepartamentoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DepartamentoId");
 
                     b.Navigation("Departamento");
                 });

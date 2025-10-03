@@ -7,7 +7,7 @@
         public int Edad { get; set; }
 
         // Relación con Departamento
-        public int DepartamentoId { get; set; }
+        public int? DepartamentoId { get; set; }
         public Departamento? Departamento { get; set; }
     }
 }

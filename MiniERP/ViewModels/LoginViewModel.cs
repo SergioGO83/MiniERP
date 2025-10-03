@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MiniERP.Models.ViewModels
+namespace MiniERP.ViewModels
 {
     public class LoginViewModel
     {

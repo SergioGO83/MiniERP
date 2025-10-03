@@ -11,7 +11,7 @@ using MiniERP.Data;
 namespace MiniERP.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251002171222_InitialCreate")]
+    [Migration("20251003093937_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -212,7 +212,7 @@ namespace MiniERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("DepartamentoId")
+                    b.Property<int?>("DepartamentoId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Edad")
@@ -278,6 +278,9 @@ namespace MiniERP.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NombreCompleto")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("NormalizedEmail")
@@ -378,9 +381,7 @@ namespace MiniERP.Migrations
                 {
                     b.HasOne("MiniERP.Models.Departamento", "Departamento")
                         .WithMany("Empleados")
-                        .HasForeignKey("DepartamentoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DepartamentoId");
 
                     b.Navigation("Departamento");
                 });

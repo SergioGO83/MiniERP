@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MiniERP.Data;
 using MiniERP.Models;
@@ -27,23 +28,28 @@ namespace MiniERP.Controllers
             return View(prod);
         }
 
+        // GET: Productos/Create
         public IActionResult Create()
         {
-            ViewData["Categorias"] = _context.Categorias.ToList();
+            ViewBag.Categorias = new SelectList(_context.Categorias, "Id", "Nombre");
             return View();
         }
 
+        // POST: Productos/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Producto prod)
+        public async Task<IActionResult> Create(Producto producto)
         {
             if (ModelState.IsValid)
             {
-                _context.Productos.Add(prod);
+                _context.Add(producto);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(prod);
+
+            // ⚠️ Si falla validación, volvemos a cargar las categorías
+            ViewBag.Categorias = new SelectList(_context.Categorias, "Id", "Nombre", producto.CategoriaId);
+            return View(producto);
         }
 
         public async Task<IActionResult> Edit(int? id)

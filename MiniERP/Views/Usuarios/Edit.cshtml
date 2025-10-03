@@ -1,0 +1,42 @@
+﻿@model MiniERP.Models.Usuario
+@{
+    ViewData["Title"] = "Editar Usuario";
+}
+
+<h2 class="mb-4">Editar Usuario</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="NombreCompleto" class="form-label">Nombre Completo</label>
+        <input asp-for="NombreCompleto" class="form-control" />
+        <span asp-validation-for="NombreCompleto" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Rol</label>
+        <select name="selectedRole" class="form-select">
+            <option value="">-- Seleccionar Rol --</option>
+            @foreach (var rol in ViewBag.Roles as List<string>)
+            {
+                <option value="@rol" selected="@(ViewBag.UserRole == rol ? "selected" : null)">
+                    @rol
+                </option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        <i class="bi bi-save"></i> Guardar
+    </button>
+    <a asp-action="Index" class="btn btn-secondary">
+        <i class="bi bi-arrow-left"></i> Volver
+    </a>
+</form>

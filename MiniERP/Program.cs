@@ -24,15 +24,17 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-// Ejecutar seed de roles/usuarios
-await SeedData.InitializeAsync(app.Services);
-
 // Configuración de la app
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler("/Home/Error"); //  Redirige a Error.cshtml
     app.UseHsts();
 }
+else
+{
+    app.UseDeveloperExceptionPage(); //  Para ver errores en desarrollo
+}
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -40,6 +42,14 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+// Ejecutar seed de roles/usuarios dentro de un scope
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    await SeedData.InitializeAsync(services);
+}
+
+// Ruta por defecto: Login
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Account}/{action=Login}/{id?}");

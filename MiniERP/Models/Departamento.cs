@@ -5,7 +5,7 @@
         public int Id { get; set; }
         public string Nombre { get; set; } = "";
 
-        // Relación 1:N
+        // Relación 1:N con Empleados
         public ICollection<Empleado> Empleados { get; set; } = new List<Empleado>();
     }
 }

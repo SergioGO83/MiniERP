@@ -16,8 +16,13 @@ namespace MiniERP.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Categorias.ToListAsync());
+            var categorias = await _context.Categorias
+                .Include(c => c.Productos)   // 🔑 Cargar la relación de productos
+                .ToListAsync();
+
+            return View(categorias);
         }
+
 
         public async Task<IActionResult> Details(int? id)
         {

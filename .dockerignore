@@ -1,0 +1,34 @@
+# Carpetas de build y compilación
+**/bin/
+**/obj/
+**/out/
+
+# Archivos de usuario de VS
+.vs/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Archivos temporales
+*.tmp
+*.log
+*.cache
+*.pid
+*.lock
+
+# Configuración local
+*.env
+appsettings.Development.json
+
+# Control de versiones
+.git
+.gitignore
+.gitattributes
+
+# Otros que no deben ir al contenedor
+Dockerfile*
+docker-compose*
+README.md
+LICENSE

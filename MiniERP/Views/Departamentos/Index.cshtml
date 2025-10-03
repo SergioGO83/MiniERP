@@ -1,28 +1,22 @@
 ﻿@model IEnumerable<MiniERP.Models.Departamento>
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-danger">@TempData["Error"]</div>
-}
-@if (TempData["Success"] != null)
-{
-    <div class="alert alert-success">@TempData["Success"]</div>
-}
 @{
     ViewData["Title"] = "Departamentos";
 }
 
-<h2>Departamentos</h2>
+<h2 class="mb-4">Departamentos</h2>
 
 <p>
-    <a asp-action="Create" class="btn btn-primary">Nuevo Departamento</a>
+    <a asp-action="Create" class="btn btn-primary">
+        <i class="bi bi-building"></i> Nuevo Departamento
+    </a>
 </p>
 
-<table class="table table-striped">
-    <thead>
+<table id="tablaDepartamentos" class="table table-hover table-bordered align-middle shadow-sm">
+    <thead class="table-dark">
         <tr>
             <th>Nombre</th>
             <th>Empleados asignados</th>
-            <th></th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -32,11 +26,35 @@
                 <td>@item.Nombre</td>
                 <td>@item.Empleados?.Count</td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Editar</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Detalles</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Eliminar</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning"><i class="bi bi-pencil">Editar</i></a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info"><i class="bi bi-eye"></i>Detalles</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger"><i class="bi bi-trash">Eliminar</i></a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#tablaDepartamentos').DataTable({
+                    responsive: true,
+            ordering: true, // 🔹 habilita ordenación
+            paging: true,   // 🔹 paginación
+            searching: true, // 🔹 buscador
+            dom: 'Bfrtip',
+            buttons: [
+                { extend: 'copy', text: '<i class="bi bi-clipboard"></i> Copiar', className: 'btn btn-secondary' },
+                { extend: 'excel', text: '<i class="bi bi-file-earmark-excel"></i> Excel', className: 'btn btn-success' },
+                { extend: 'csv', text: '<i class="bi bi-filetype-csv"></i> CSV', className: 'btn btn-info' },
+                { extend: 'pdf', text: '<i class="bi bi-file-earmark-pdf"></i> PDF', className: 'btn btn-danger' },
+                { extend: 'print', text: '<i class="bi bi-printer"></i> Imprimir', className: 'btn btn-dark' }
+            ],
+            language: {
+                url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
+            }
+        });
+        });
+    </script>
+}
