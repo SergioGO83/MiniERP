@@ -55,6 +55,15 @@ El proyecto está diseñado para ser **didáctico y práctico**, con un enfoque 
 
 ---
 
+### Capturas de pantalla
+<img width="2554" height="747" alt="image" src="https://github.com/user-attachments/assets/2aa6a55f-770e-4d6d-91c6-50cdd294a864" />
+<img width="2557" height="413" alt="image" src="https://github.com/user-attachments/assets/91309a47-b480-4f75-a36d-515c52fe1743" />
+<img width="2556" height="588" alt="image" src="https://github.com/user-attachments/assets/68a2cf55-1cad-4ac6-9f3d-521f83183f04" />
+<img width="2556" height="637" alt="image" src="https://github.com/user-attachments/assets/73e7175f-6c29-4720-b670-dffd8c32aca8" />
+<img width="2555" height="666" alt="image" src="https://github.com/user-attachments/assets/48900b08-668e-4fe9-8d86-eb055e4a923a" />
+<img width="2554" height="624" alt="image" src="https://github.com/user-attachments/assets/a62ddd95-4df2-4098-bf0b-5a876d5d8ca1" />
+<img width="2552" height="647" alt="image" src="https://github.com/user-attachments/assets/1e5fff7f-24dc-4f3a-9c00-2dc4ceef65e0" />
+
 ## ⚙️ Configuración del proyecto
 
 ### 1. Clonar el repositorio
@@ -160,17 +169,4 @@ Sergio Gay Ortiz
 📜 Licencia
 
 MIT License © 2025
-###
-<img width="2554" height="747" alt="image" src="https://github.com/user-attachments/assets/2aa6a55f-770e-4d6d-91c6-50cdd294a864" />
-<img width="2557" height="413" alt="image" src="https://github.com/user-attachments/assets/91309a47-b480-4f75-a36d-515c52fe1743" />
-<img width="2556" height="588" alt="image" src="https://github.com/user-attachments/assets/68a2cf55-1cad-4ac6-9f3d-521f83183f04" />
-<img width="2556" height="637" alt="image" src="https://github.com/user-attachments/assets/73e7175f-6c29-4720-b670-dffd8c32aca8" />
-<img width="2555" height="666" alt="image" src="https://github.com/user-attachments/assets/48900b08-668e-4fe9-8d86-eb055e4a923a" />
-<img width="2554" height="624" alt="image" src="https://github.com/user-attachments/assets/a62ddd95-4df2-4098-bf0b-5a876d5d8ca1" />
-<img width="2552" height="647" alt="image" src="https://github.com/user-attachments/assets/1e5fff7f-24dc-4f3a-9c00-2dc4ceef65e0" />
-
-
-
-
-
 
