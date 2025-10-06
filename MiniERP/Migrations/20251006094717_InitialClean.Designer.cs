@@ -11,8 +11,8 @@ using MiniERP.Data;
 namespace MiniERP.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251003093937_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20251006094717_InitialClean")]
+    partial class InitialClean
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

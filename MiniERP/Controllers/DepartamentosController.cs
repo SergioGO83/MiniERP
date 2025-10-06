@@ -35,15 +35,13 @@ namespace MiniERP.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Departamento dep)
+        public async Task<IActionResult> Create([Bind("Nombre")] Departamento departamento)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Departamentos.Add(dep);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(dep);
+            if (!ModelState.IsValid) return View(departamento);
+
+            _context.Add(departamento);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index)); // -> 302
         }
 
         public async Task<IActionResult> Edit(int? id)
