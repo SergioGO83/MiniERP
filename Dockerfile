@@ -16,11 +16,13 @@ RUN dotnet publish -c Release -o /app
 # Etapa 2: runtime
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime
 WORKDIR /app
-COPY --from=build /app .
+
+# Crear carpeta de datos para SQLite y dar permisos de escritura
+RUN mkdir -p /app/data && chmod -R 775 /app
+
+COPY --from=build /app ./
+
 EXPOSE 8080
+ENV ASPNETCORE_URLS=http://0.0.0.0:8080
 
-# Variable de entorno
-ENV ASPNETCORE_URLS=http://+:8080
-
-# Ejecutar
 ENTRYPOINT ["dotnet", "MiniERP.dll"]

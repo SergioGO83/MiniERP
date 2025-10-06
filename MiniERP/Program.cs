@@ -5,53 +5,61 @@ using MiniERP.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// EF Core con SQLite
+// EF Core con SQLite real (la factory reemplaza esto en Testing)
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Identity
-builder.Services.AddDefaultIdentity<Usuario>(options => options.SignIn.RequireConfirmedAccount = false)
+builder.Services.AddDefaultIdentity<Usuario>(o => o.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>();
 
-builder.Services.ConfigureApplicationCookie(options =>
+builder.Services.ConfigureApplicationCookie(o =>
 {
-    options.LoginPath = "/Account/Login";
-    options.AccessDeniedPath = "/Account/AccessDenied";
+    o.LoginPath = "/Account/Login";
+    o.AccessDeniedPath = "/Account/AccessDenied";
 });
 
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-// Configuración de la app
-if (!app.Environment.IsDevelopment())
+// Errores
+if (app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error"); //  Redirige a Error.cshtml
-    app.UseHsts();
+    app.UseDeveloperExceptionPage();
 }
 else
 {
-    app.UseDeveloperExceptionPage(); //  Para ver errores en desarrollo
+    app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
 }
 
+//  Solo redirige a HTTPS FUERA de Testing
+if (!app.Environment.IsEnvironment("Testing"))
+{
+    app.UseHttpsRedirection();
+}
 
-app.UseHttpsRedirection();
 app.UseStaticFiles();
+
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Ejecutar seed de roles/usuarios dentro de un scope
-using (var scope = app.Services.CreateScope())
+//  Seed solo FUERA de Testing
+if (!app.Environment.IsEnvironment("Testing"))
 {
+    using var scope = app.Services.CreateScope();
     var services = scope.ServiceProvider;
     await SeedData.InitializeAsync(services);
 }
 
-// Ruta por defecto: Login
+// Ruta por defecto
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Account}/{action=Login}/{id?}");
 
 app.Run();
+
+public partial class Program { }
